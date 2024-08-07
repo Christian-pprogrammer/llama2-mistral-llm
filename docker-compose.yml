@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  flask_app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - REPLICATE_API_TOKEN=r8_DHP1vOdyPnkANBFGXtYDtCddeomLQVl0aVA99
+    networks:
+      - app_network
+
+  nestjs_app:
+    build:
+      context: ./llm_client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://llm_user:mnbvcxz@mongodb:27017/llm_conversations
+    depends_on:
+      - mongodb
+    networks:
+      - app_network
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=llm_user
+      - MONGO_INITDB_ROOT_PASSWORD=mnbvcxz
+      - MONGO_INITDB_DATABASE=llm_conversations
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
