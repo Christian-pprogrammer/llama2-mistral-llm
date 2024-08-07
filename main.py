@@ -1,12 +1,8 @@
 from flask import Flask, request, jsonify
 import replicate
-import os
 from uuid import uuid4
 
 app = Flask(__name__)
-
-# Set your Replicate API token
-os.environ["REPLICATE_API_TOKEN"] = "r8_DHP1vOdyPnkANBFGXtYDtCddeomLQVl0aVA99"
 
 # In-memory storage for conversation history
 conversations = {}
