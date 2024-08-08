@@ -51,7 +51,7 @@ export class ConversationService {
   }
 
   private async generateResponse(model: string, query: string, conversationId?: string): Promise<string> {
-    const flaskApiUrl = 'http://localhost:5000/generate'; // Update this URL if your Flask API is hosted elsewhere
+    const flaskApiUrl = 'http://flask_app:5000/generate'; // Update this URL if your Flask API is hosted elsewhere
     const response = await axios.post(flaskApiUrl, {
       model,
       query,
