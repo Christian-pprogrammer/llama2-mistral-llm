@@ -12,7 +12,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     HttpModule,
-    MongooseModule.forRoot('mongodb://llm_user:mnbvcxz@127.0.0.1:27017/llm_conversations', {
+    MongooseModule.forRoot(process.env.MONGODB_URI, {
         authSource: 'admin'
     }),
     ConversationModule
